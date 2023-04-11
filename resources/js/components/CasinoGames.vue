@@ -17,7 +17,7 @@
             class="nav-item"
             v-for="category in categories"
             :key="category.id"
-            @click="filterGames(category.real_id, category.title)"
+            @click="filterGames(category.id, category.title)"
           >
             <a
               class="nav-link active"
@@ -81,7 +81,7 @@ export default {
         this.filteredGames = this.games;
       } else {
         this.filteredGames = this.games.filter(
-          (game) => game.category == title
+          (game) => game.category_id == categoryId
         );
       }
       this.selectedCategory = title;
