@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\CasinoGame;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class CasinoGamesController extends Controller
 {
     //
+    const USER_NOT_FOUND = [
+        "status" => "fail",
+        "error" => "user_not_found"
+    ];
+    const NOT_ENOUGH_BALANCE = [
+        "status" => "fail",
+        "error" => "fail_balance"
+    ];
+
     public function updateGames()
     {
         $key = env("CASINO_KEY");
@@ -100,16 +111,59 @@ class CasinoGamesController extends Controller
             Log::info("HTTP REQUEST RECEIVED");
             $data = $request->getContent();
             $decodedData = json_decode($data);
-            $username = $decodedData->username;
 
-            Log::info("DATA FROM GOLDSVET: " . json_encode($data));
-            Log::info("USERNAME: ". $username);
-            return response()->json([
-                "status" => "success",
-                "error" => "",
-                "username" => "SimonAngatia",
-                "balance" => "100",
-            ]);
+            $username = $decodedData->username;
+            $user = User::where('username', $username)->first();
+            if ($user) {
+                $command = $decodedData->cmd;
+                switch ($command) {
+                    case 'getBalance':
+                        $response_data = [
+                            "status" => "success",
+                            "error" => "",
+                            "login" => $user->username,
+                            "balance" => $user->balance, // Balance value must be returned in Data Type: Decimal 12,2
+                            "currency" => "EUR", // Currency value must be returned in Data Type: String 3
+                        ];
+                        return response()->json($response_data);
+
+                        break;
+
+                    case 'writeBet':
+                        $balance = $user->balance;
+                        // Log::info('Balance:'.$balance);
+                        // Log::info('Bet:'.$bet);
+                        if ($balance < $decodedData->bet) {
+                            // Log::info('Return an errror message balance < bet:'.$balance.' < '.$bet);
+                            return response()->json($this::NOT_ENOUGH_BALANCE);
+                        }
+                        $new_balance = $balance - $decodedData->bet;
+                        $final_balance = $new_balance + $decodedData->win;
+                        $user->update(['balance' => $final_balance]);
+                        // Log::info('IgslotWrite:'. json_encode($ig_slot));
+                        DB::commit();
+
+                        $refreshUser = $user->fresh();
+
+                        $response_data = [
+                            "status" => "success",
+                            "error" => "",
+                            "login" => $user->username,
+                            "balance" => $refreshUser->balance,
+                            "currency" => "EUR",
+                            "operationId" => "3234234"
+                        ];
+                        // Log::info('Response Data:'.json_encode($response_data));
+                        return response()->json($response_data);
+
+                        break;
+
+                    default:
+                        return response()->json($this::USER_NOT_FOUND);
+                        break;
+                }
+            }
+            return response()->json($this::USER_NOT_FOUND);
         } catch (\Throwable $th) {
             Log::error("Error from goldsvet: " . $th->getMessage());
             return response()->json([
