@@ -110,6 +110,7 @@ class CasinoGamesController extends Controller
             //code...
             Log::info("HTTP REQUEST RECEIVED");
             $data = $request->getContent();
+            Log::info("DATA FROM THE GAME SERVER: ".$data);
             $decodedData = json_decode($data);
 
             $username = $decodedData->username;
@@ -135,12 +136,14 @@ class CasinoGamesController extends Controller
                         // Log::info('Balance:'.$balance);
                         // Log::info('Bet:'.$bet);
                         if ($balance < $decodedData->bet) {
+
                             // Log::info('Return an errror message balance < bet:'.$balance.' < '.$bet);
                             return response()->json($this::NOT_ENOUGH_BALANCE);
                         }
                         $new_balance = $balance - $decodedData->bet;
                         $final_balance = $new_balance + $decodedData->win;
                         $user->update(['balance' => $final_balance]);
+                        Log::info('user balance updated');
                         // Log::info('IgslotWrite:'. json_encode($ig_slot));
                         DB::commit();
 
