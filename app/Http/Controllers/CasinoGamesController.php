@@ -67,8 +67,8 @@ class CasinoGamesController extends Controller
     public function openGame($game)
     {
         $gameData = CasinoGame::find($game);
-        $key = env("CASINO_KEY");
-        $url = env("CASINO_SERVER_URL");
+        $key = "DM9kcaPnLXSLRhxLAwqU9ojjK";
+        $url = "https://test.rentalb.al/api/api-server";
         $response = Http::post($url, [
             'key' => $key,
             'cmd' => 'openGame',
