@@ -116,6 +116,7 @@ class CasinoGamesController extends Controller
             $user = User::where('username', $username)->first();
             if ($user) {
                 $command = $decodedData->cmd;
+                Log::info("COMMAND: ".$command);
                 switch ($command) {
                     case 'getBalance':
                         $response_data = [
