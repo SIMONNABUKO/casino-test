@@ -77,6 +77,7 @@ class CasinoGamesController extends Controller
     }
     public function openGame($game)
     {
+        $balance =auth()->user()->balance;
         $gameData = CasinoGame::find($game);
         $key = "DM9kcaPnLXSLRhxLAwqU9ojjK";
         $url = "https://test.rentalb.al/api/api-server";
@@ -85,7 +86,8 @@ class CasinoGamesController extends Controller
             'cmd' => 'openGame',
             'gameId' => $gameData->game_id,
             'exitUrl' => 'https://casino.codingexpat.com/',
-            'username' => 'SimonAngatia'
+            'username' => 'SimonAngatia',
+            'balance'=>$balance
         ]);
         // dd($response);
         if ($response->successful()) {
