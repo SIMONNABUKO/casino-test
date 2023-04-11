@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CasinoGamesController::class,'home'])->middleware('auth');
+Route::get('/', [CasinoGamesController::class,'home']);
 
 Auth::routes();
 
