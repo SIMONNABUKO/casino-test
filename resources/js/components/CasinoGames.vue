@@ -52,7 +52,7 @@
               <div class="card-body">
                 <p class="card-text">{{ game.title }}</p>
                 <span id="teal">{{
-                  game.category ? game.category.title : ""
+                  game.category ? game.category: ""
                 }}</span>
               </div>
             </div>
