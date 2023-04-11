@@ -13,20 +13,28 @@
 
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom">
-        <a class="navbar-brand ml-2 font-weight-bold" href="#">CASINO</a>
+        <a class="navbar-brand ml-2 font-weight-bold" href="/">CASINO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor">
             <ul class="navbar-nav">
-                <!-- <li class="nav-item"><a class="nav-link" href="#">Women's</a> </li>
-                <li class="nav-item"><a class="nav-link" href="#">Men's</a> </li>
-                <li class="nav-item "><a class="nav-link" href="#">Home</a> </li>
-                <li class="nav-item "><a class="nav-link" href="#">Sale</a> </li> -->
+                @guest
+                <li class="nav-item"><a class="nav-link" href="/register">Register</a> </li>
+                <li class="nav-item"><a class="nav-link" href="/login">Login</a> </li>
+                @endguest
+                @auth
+                 <li class="nav-item "><a class="nav-link" href="#">{{auth()->user()->username}}</a> </li>
+                <li class="nav-item "><a class="nav-link" href="#">Bal. {{auth()->user()->balance}}</a> </li> 
+                @endauth
+                
+                <!-- <li class="nav-item "><a class="nav-link" href="#">Home</a> </li>
+                <li class="nav-item "><a class="nav-link" href="#">Sale</a> </li>  -->
             </ul>
         </div>
         </div>
     </nav>
+
 
     <div id="app">
         @yield('content')

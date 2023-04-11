@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CasinoGamesController::class,'home']);
+Route::get('/', [CasinoGamesController::class,'home'])->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/update-games', [CasinoGamesController::class,'updateGames']);
-Route::get('/games/{game}',[CasinoGamesController::class,'openGame']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/update-games', [CasinoGamesController::class,'updateGames'])->middleware('auth');
+Route::get('/games/{game}',[CasinoGamesController::class,'openGame'])->middleware('auth');

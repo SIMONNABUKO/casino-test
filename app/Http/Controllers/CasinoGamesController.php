@@ -73,8 +73,8 @@ class CasinoGamesController extends Controller
             'key' => $key,
             'cmd' => 'openGame',
             'gameId' => $gameData->game_id,
-            'exitUrl' => 'http://127.0.0.1:8000/',
-            'username'=>'SimonAngatia'
+            'exitUrl' => 'https://casino.codingexpat.com/',
+            'username' => 'SimonAngatia'
         ]);
         // dd($response);
         if ($response->successful()) {
@@ -89,8 +89,31 @@ class CasinoGamesController extends Controller
         } else {
             // The request returned an error (e.g. 404 or 500 status code)
             $errorMessage = $response->status() . ' ' . $response->body();
-            Log::info("API ERROR: ".$errorMessage);
+            Log::info("API ERROR: " . $errorMessage);
             // dd($errorMessage);
+        }
+    }
+    public function testGoldsvet(Request $request)
+    {
+        try {
+            //code...
+            Log::info("HTTP REQUEST RECEIVED");
+            $data = $request->all();
+
+            Log::info("DATA FROM GOLDSVET: " . json_encode($data));
+            return response()->json([
+                "status" => "success",
+                "error" => "",
+                "username" => "SimonAngatia",
+                "balance" => "100",
+            ]);
+        } catch (\Throwable $th) {
+            Log::error("Error from goldsvet: " . $th->getMessage());
+            return response()->json([
+                "status" => "error",
+                "error" => $th->getMessage(),
+
+            ]);
         }
     }
 }
