@@ -81,7 +81,7 @@ export default {
         this.filteredGames = this.games;
       } else {
         this.filteredGames = this.games.filter(
-          (game) => game.category_id == categoryId
+          (game) => game.category == title
         );
       }
       this.selectedCategory = title;
