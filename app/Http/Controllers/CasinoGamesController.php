@@ -84,8 +84,8 @@ class CasinoGamesController extends Controller
             // dd($headers);
             $gameData = $responseBody->data;
             // dd($gameData);
-            // return redirect($gameData->url);
-            return view('game', compact('gameData'));
+            return redirect($gameData->url);
+            // return view('game', compact('gameData'));
         } else {
             // The request returned an error (e.g. 404 or 500 status code)
             $errorMessage = $response->status() . ' ' . $response->body();
