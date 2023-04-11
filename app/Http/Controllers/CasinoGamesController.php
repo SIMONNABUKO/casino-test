@@ -98,10 +98,12 @@ class CasinoGamesController extends Controller
         try {
             //code...
             Log::info("HTTP REQUEST RECEIVED");
-            $data = $request->all();
+            $data = $request->getContent();
+            $decodedData = json_decode($data);
+            $username = $decodedData['username'];
 
             Log::info("DATA FROM GOLDSVET: " . json_encode($data));
-            Log::info("USERNAME: ". $request->username);
+            Log::info("USERNAME: ". $username);
             return response()->json([
                 "status" => "success",
                 "error" => "",
