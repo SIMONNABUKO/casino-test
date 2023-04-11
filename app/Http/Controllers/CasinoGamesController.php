@@ -101,6 +101,7 @@ class CasinoGamesController extends Controller
             $data = $request->all();
 
             Log::info("DATA FROM GOLDSVET: " . json_encode($data));
+            Log::info("USERNAME: ". $request->username);
             return response()->json([
                 "status" => "success",
                 "error" => "",
