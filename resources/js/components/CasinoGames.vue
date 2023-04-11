@@ -51,9 +51,9 @@
               />
               <div class="card-body">
                 <p class="card-text">{{ game.title }}</p>
-                <span id="teal">{{
+                <!-- <span id="teal">{{
                   game.category ? game.category: ""
-                }}</span>
+                }}</span> -->
               </div>
             </div>
           </div>
