@@ -142,7 +142,10 @@ class CasinoGamesController extends Controller
                         }
                         $new_balance = $balance - $decodedData->bet;
                         $final_balance = $new_balance + $decodedData->win;
-                        $user->update(['balance' => $final_balance]);
+                        $user->balance = $final_balance;
+                        $user->save();
+                        Log::info("BET: ".$decodedData->bet);
+                        Log::info("WIN: ".$decodedData->win);
                         Log::info('user balance updated');
                         // Log::info('IgslotWrite:'. json_encode($ig_slot));
                         DB::commit();
