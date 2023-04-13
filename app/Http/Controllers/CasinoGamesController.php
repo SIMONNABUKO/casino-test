@@ -86,7 +86,7 @@ class CasinoGamesController extends Controller
             'cmd' => 'openGame',
             'gameId' => $gameData->game_id,
             'exitUrl' => 'https://casino.codingexpat.com/',
-            'username' => 'SimonAngatia',
+            'username' => auth()->user()->username,
             'balance'=>$balance
         ]);
         // dd($response);
