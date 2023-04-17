@@ -40,7 +40,6 @@
             class="col-lg-3 col-sm-4 col-11 offset-sm-0 offset-1"
             v-for="game in filteredGames"
             :key="game.id"
-            @click="openGame(game.id, 0)"
             style="cursor: pointer;"
           >
             <div class="card">
