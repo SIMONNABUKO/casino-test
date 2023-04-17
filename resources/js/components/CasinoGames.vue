@@ -51,8 +51,8 @@
               />
               <div class="card-body">
                 <p class="card-text">{{ game.title }}</p>
-                <a href="#" class="btn btn-primary btn-sm" @click="openGame(game.id, 1)">demo</a>
-                <a href="#" class="btn btn-success btn-sm" @click="openGame(game.id, 0)">play</a>
+                <a href="#" class="btn btn-primary btn-sm px-3" @click="openGame(game.id, 1)">demo</a>
+                <a href="#" class="btn btn-success btn-sm px-3" @click="openGame(game.id, 0)">play</a>
               </div>
             </div>
           </div>
