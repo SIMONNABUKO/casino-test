@@ -75,7 +75,7 @@ class CasinoGamesController extends Controller
         $games = CasinoGame::inRandomOrder()->with('category')->get();
         return view('welcome', compact('game_categories', 'games'));
     }
-    public function openGame($game)
+    public function openGame(Request $request, $game)
     {
         $balance =auth()->user()->balance;
         $gameData = CasinoGame::find($game);
@@ -88,7 +88,7 @@ class CasinoGamesController extends Controller
             'exitUrl' => 'https://casino.codingexpat.com/',
             'username' => auth()->user()->username,
             'balance'=>$balance,
-            'demo'=>1
+            'demo'=>$request->demo
         ]);
         // dd($response);
         if ($response->successful()) {

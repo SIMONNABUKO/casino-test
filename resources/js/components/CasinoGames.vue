@@ -40,7 +40,7 @@
             class="col-lg-3 col-sm-4 col-11 offset-sm-0 offset-1"
             v-for="game in filteredGames"
             :key="game.id"
-            @click="openGame(game.id)"
+            @click="openGame(game.id, 0)"
             style="cursor: pointer;"
           >
             <div class="card">
@@ -51,9 +51,8 @@
               />
               <div class="card-body">
                 <p class="card-text">{{ game.title }}</p>
-                <!-- <span id="teal">{{
-                  game.category ? game.category: ""
-                }}</span> -->
+                <a href="#" class="btn btn-primary btn-sm" @click="openGame(game.id, 1)">demo</a>
+                <a href="#" class="btn btn-success btn-sm" @click="openGame(game.id, 0)">play</a>
               </div>
             </div>
           </div>
@@ -86,8 +85,8 @@ export default {
       }
       this.selectedCategory = title;
     },
-    openGame(gameId) {
-      window.location.href = `/games/${gameId}`;
+    openGame(gameId, demo) {
+      window.location.href = `/games/${gameId}?demo=${demo}`;
     },
   },
 
