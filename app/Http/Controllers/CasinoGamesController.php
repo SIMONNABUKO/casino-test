@@ -93,7 +93,9 @@ class CasinoGamesController extends Controller
         ]);
         // dd($response);
         if ($response->successful()) {
+
             $responseBody = json_decode($response->body());
+            dd($responseBody);
             $headers = $response->headers();
             // dd($responseBody);
             // dd($headers);
