@@ -95,7 +95,7 @@ class CasinoGamesController extends Controller
         if ($response->successful()) {
 
             $responseBody = json_decode($response->body());
-            // dd($responseBody);
+            dd($responseBody);
             $headers = $response->headers();
             // dd($responseBody);
             // dd($headers);
